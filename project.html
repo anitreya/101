@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@400;500&family=Roboto:wght@400&display=swap" rel="stylesheet">
+
+  <title>101 Video Editing Studio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* 🔹 Apply snap to html, not body */
+html {
+  scroll-snap-type: y mandatory;   /* snap vertically */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: black;
+  color: white;
+  overflow-x: hidden;   /* prevent sideways scroll */
+  overflow-y: auto;     /* allow normal scrolling */
+}
+
+section {
+  height: 100vh;                 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px;
+  scroll-snap-align: start;      
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+  position: relative;
+  margin: 0 auto;
+  max-width: 1200px;    
+}
+
+.bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;      /* full viewport width */
+  height: 100vh;     /* full viewport height */
+  object-fit: cover; /* fill the screen properly */
+  z-index: -1;       /* keep it behind content */
+  filter: brightness(0.9);
+  pointer-events: none;
+}
+
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      scroll-snap-align: start;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+      position: relative;
+    }
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .red { color: red; }
+
+    .team {
+      text-align: center;
+      position: relative;
+      padding-top: 100px;
+    }
+
+
+
+
+.team-slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.team-slider {
+  display: flex;
+  transition: transform 0.5s ease;
+  gap: 40px;
+}
+
+/* Common style for all team cards */
+.team-card {
+  flex: 0 0 auto;            
+  max-width: 600px;          /* prevents too wide stretch */
+  margin: 0 auto;            /* center */
+  background: #111;
+  padding: 40px 50px;
+  border: 1px solid #444;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #fff;
+  flex-direction: row;
+  position: relative;
+}
+.team-card:hover {
+  box-shadow: 0 0 25px rgba(230, 0, 0, 0.6);
+}
+
+/* Specific styles for each card */
+.card1 {
+  width: 60%;   /* smaller card */
+  background: #1a1a1a;
+  margin-left: 290px;
+    width: 950px;
+  height: 295px;
+}
+
+.card2 {
+  width: 70%;   /* medium card */
+  background: #222;
+  margin-left: 525px;
+}
+
+.card3 {
+  width: 80%;   /* larger card */
+  background: #2a2a2a;
+  margin-left: 525px;
+}
+
+
+
+.team-card img {
+  width: 165px; /* bigger images */
+  height: 165px;
+  border-radius: 20px; /* rounded corners for image */
+  background-color: #333;
+  margin-right: 200px;
+  margin-right: 0; 
+  margin-left: -20px;
+}
+.team-info {
+  position: absolute;
+  top: 40px;
+  left: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* keeps everything left aligned */
+  max-width: 380px;
+}
+
+.team-info .top-row {
+  display: flex;
+  align-items: center;   /* vertically align icon with text */
+  gap: 8px;              /* spacing between icon and name */
+  margin-bottom: 4px;
+}
+
+.team-info .icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.team-info .name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e60000; /* red highlight */
+}
+
+.team-info .role {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 6px;
+}
+.team-info .desc {
+  font-size: 13.6px;         /* smaller size */
+  line-height: 1.6;              /* good readability */
+  color: #ccc; 
+  text-align: justify;          /* keep aligned left */
+  margin-top: 10px;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.2px;
+  max-width: 85%;                /* reduce width to avoid touching border */
+  padding-right: 10px;           /* add spacing from right edge */
+}
+/* Hover effect for name */
+.team-info .name:hover {
+  color: #ff3333;                 /* brighter red on hover */
+  text-shadow: 0 0 8px rgba(230, 0, 0, 0.8);
+  cursor: pointer;                /* pointer cursor */
+  transition: 0.3s ease-in-out;   /* smooth animation */
+}
+
+/* Hover effect for role */
+.team-info .role:hover {
+  color: #fff;                    /* turn white on hover */
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.team-info .desc:hover {
+  color: #fff;                    /* turn white on hover */
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.team-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  gap: 10px;
+}
+
+.team-dots .dot {
+  width: 12px;
+  height: 12px;
+  background: #888;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.team-dots .dot.active {
+  background-color: white;
+}
+
+
+    a {
+      color: #ff4d4d;
+      text-decoration: none;
+    }
+      .filter-buttons {
+       margin-top: 35px;
+      margin-bottom: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .filter-buttons button {
+      background: transparent;
+      color: #aaa;
+      padding: 10px 20px;
+      border-radius: 2px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      border: 1px solid #555;
+    }
+
+    .filter-buttons button:hover,
+    .filter-buttons button:focus {
+      background-color: #f44336;
+      color: #000;
+      box-shadow: 0 0 6px rgba(244, 67, 54, 0.5);
+    }
+    .landing-text {
+      font-size: 18rem;
+      color: red;
+      opacity: 0.3;
+    }
+    .spacer {
+      height: 0;
+    }
+
+.portfolio-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* centers the items */
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+
+.portfolio-grid .item {
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 30px;
+  min-height: 220px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 16px rgba(255, 0, 0, 0.2);
+  font-size: 1.1rem;
+  flex: 0 0 250px;
+}
+.portfolio-grid .item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+  background-color: #1a1a1a;
+  cursor: pointer;
+}
+
+  .services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.services-grid .card {
+  background-color: #111;
+  padding: 30px; /* Increased padding */
+  border-radius: 16px; /* Slightly more rounded */
+  border: 1px solid #333;
+  box-shadow: 0 0 16px rgba(255, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+  font-size: 1.1rem; /* Slightly larger text */
+  min-height: 220px; /* Increase height */
+}
+
+
+.services-grid .card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+  background-color: #1a1a1a;
+}
+
+.services-grid .card h3 {
+  color: #f44336;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.services-grid .card ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  color: #ddd;
+}
+.about {
+  max-width: 1000px;
+  margin: auto;
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.about p {
+  font-size: 1.5rem; /* increased from 1.25rem */
+  line-height: 2.1;  /* more breathing room */
+  color: #ccc;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeInUp 1.3s ease forwards;
+  letter-spacing: 0.4px;
+}
+
+.about p strong {
+  font-weight: bold;
+  color: inherit; /* keeps white, no red */
+}
+
+.video-slider video {
+  border-radius: 12px;
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  font-size: 2rem;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.arrow.left  { left: 10px; }
+.arrow.right { right: 10px; }
+.arrow:hover { background: rgba(255,0,0,0.8); }}
+.arrow:hover {
+  background: rgba(255,0,0,0.8);
+}
+
+.travel-slider {
+  position: relative;
+  width: 600px;   /* box width */
+  height: 340px;  /* box height */
+  margin: auto;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+}
+
+.video-slider {
+  position: relative;
+  width: 650px;     /* box width */
+  height: 400px;    /* box height */
+  margin: auto;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+}
+
+.video-track {
+  display: flex;
+  transition: transform 0.6s ease;
+  height: 100%;
+  
+}
+
+.video-track video {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* fills without distortion */
+  background: #000;
+  border-radius: 16px;
+    margin: 0; /* remove any extra margin */
+}
+
+/* Travel video container */
+.travel-video {
+  width: 100%;
+  max-width: 900px;        /* same max width for all */
+  aspect-ratio: 16 / 9;    /* keep consistent size */
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+  background: #000;        /* avoids blank space */
+}
+
+/* Videos inside container */
+.travel-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* fills box, no stretching */
+  display: block;
+}
+
+
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+
+</style>
+</head>
+
+<body>
+ 
+<video autoplay muted loop playsinline class="bg-video">
+  <source src="video/video.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<section class="landing"></section>
+
+<section class="about">
+  <p>
+    At 101, we believe every story deserves to be told beautifully. 
+    We are a creative production team based in Ontario, capturing events, brands, travels, and moments 
+    with cinematic precision and a personal touch.
+    <br><br>
+    Our approach is simple: <strong>listen, create, and deliver</strong>. Whether you’re celebrating a milestone, 
+    launching a product, or showcasing a property, we bring your vision to life through visuals that 
+    connect and inspire.
+  </p>
+</section>
+
+
+
+  <section class="portfolio">
+    <h2 style="font-size: 2rem;">OUR <span class="red">PORTFOLIO</span></h2>
+  <div class="filter-buttons">
+    <button onclick="showCategory('all')">All</button>
+    <button onclick="showCategory('travel')">Travel</button>
+    <button onclick="showCategory('commercial')">Commercial</button>
+    <button onclick="showCategory('event')">Event</button>
+    <button onclick="showCategory('social')">Social Media</button>
+    <button onclick="showCategory('drone')">Drone</button>
+  </div>
+<!-- TRAVEL VIDEOS -->
+<div id="travel" class="portfolio-grid category" style="display: none; flex-direction: column; align-items: center;">
+  <div class="video-slider">
+ <button class="arrow left" onclick="showSlide('travel', -1)">&#10094;</button>
+
+  <div class="video-track">
+    <video controls muted preload="none" poster="thumbnails/travel1.jpg" >
+      <source src="video/POTR.mov" type="video/mp4" >
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel2.jpg" >
+      <source src="video/PORT.mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/COLOR1.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel1.jpg" >
+      <source src="video/BLFF4.mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel2.jpg" >
+      <source src="video/2024-1.mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/bluffers beach beer1.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/STCATHERINS12.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel2.jpg" >
+      <source src="video/aTOB1.mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/ver34.1.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel3.jpg">
+      <source src="video/NOTL.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <button class="arrow right" onclick="showSlide('travel', 1)">&#10095;</button>
+</div>
+
+</div>
+    <!-- Commercial -->
+<div id="commercial" class="portfolio-grid category" style="display: none; flex-direction: column; align-items: center;">
+  <div class="video-slider">
+  <button class="arrow left" onclick="showSlide('commercial', -1)">&#10094;</button>
+
+
+
+  <div class="video-track">
+    <video controls muted preload="none" poster="thumbnails/travel1.jpg" >
+      <source src="video/FERARA.mp4" type="video/mp4" >
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel2.jpg" >
+      <source src="video/final1.mp4" type="video/mp4">
+    </video>
+
+  <button class="arrow right" onclick="showSlide('commercial', 1)">&#10095;</button>
+</div>
+
+</div>
+
+  <!-- EVENT VIDEOS -->
+<div id="event" class="portfolio-grid category" style="display: none; flex-direction: column; align-items: center;">
+  <div class="video-slider">
+ <button class="arrow left" onclick="showSlide('event', -1)">&#10094;</button>
+
+  <div class="video-track">
+    <video controls muted preload="none" poster="thumbnails/travel1.jpg" >
+      <source src="video/NOAH.mp4" type="video/mp4" >
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel2.jpg" >
+      <source src="video/SREERAG X SNEHA.mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/Untitled.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <button class="arrow right" onclick="showSlide('event', 1)">&#10095;</button>
+</div>
+
+</div>
+
+  <!-- SOCIAL MEDIA VIDEOS -->
+<div id="social" class="portfolio-grid category" style="display: none; flex-direction: column; align-items: center;">
+  <div class="video-slider">
+<button class="arrow left" onclick="showSlide('social', -1)">&#10094;</button>
+
+  <div class="video-track">
+    <video controls muted preload="none" poster="thumbnails/travel1.jpg" >
+      <source src="video/Untitled345644.mp4" type="video/mp4" >
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel2.jpg" >
+      <source src="video/notler1 (1).mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/DENCE.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel1.jpg" >
+      <source src="video/SUBARU.mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel2.jpg" >
+      <source src="video/sk3.mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/dark red12.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/josros41.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel2.jpg" >
+      <source src="video/NOTLBEACH2.mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/car f1.mp4" type="video/mp4">
+    </video>
+          <video controls muted preload="none" poster="thumbnails/travel3.jpg">
+      <source src="video/5004.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/ELORA.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel3.jpg">
+      <source src="video/FD1.1.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <button class="arrow right" onclick="showSlide('social', 1)">&#10095;</button>
+</div>
+
+</div>
+  <!-- DRONE -->
+<div id="drone" class="portfolio-grid category" style="display: none; flex-direction: column; align-items: center;">
+  <div class="video-slider">
+  <button class="arrow left" onclick="showSlide('drone', -1)">&#10094;</button>
+
+  <div class="video-track">
+    <video controls muted preload="none" poster="thumbnails/travel1.jpg" >
+      <source src="video/ron1.2.mp4" type="video/mp4" >
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel2.jpg" >
+      <source src="video/drone 54.1.mp4" type="video/mp4">
+    </video>
+    <video controls muted preload="none" poster="thumbnails/travel3.jpg" >
+      <source src="video/DRONC1.2.mp4" type="video/mp4">
+    </video>
+        <video controls muted preload="none" poster="thumbnails/travel1.jpg" >
+      <source src="video/WATERFONT.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <button class="arrow right" onclick="showSlide('drone', 1)">&#10095;</button>
+</div>
+
+</div>
+<div id="all" class="portfolio-grid category">
+  <div class="item" onclick="showCategory('travel')"><h4>Travel</h4></div>
+  <div class="item" onclick="showCategory('commercial')"><h4>Commercial</h4></div>
+  <div class="item" onclick="showCategory('event')"><h4>Event</h4></div>
+  <div class="item" onclick="showCategory('social')"><h4>Social Media</h4></div>
+  <div class="item" onclick="showCategory('drone')"><h4>Drone</h4></div>
+</div>
+
+  </section>
+  <section class="services">
+    <h2 style="font-size: 2rem;margin-bottom: 28px;">OUR <span class="red">SERVICES</span></h2>
+    <div class="services-grid">
+      <div class="card">
+        <h3>Event Videography</h3>
+        <p>Weddings, birthdays, parties, or corporate gatherings—we capture your most important moments with a natural and cinematic touch, preserving memories that feel real and timeless.</p>
+      </div>
+      <div class="card">
+        <h3> Travel & Lifestyle Films</h3>
+        <p>We specialize in capturing the beauty, culture, and energy of every destination. Perfect for travel brands, tourism campaigns, or content creators looking to document their journey with style.</p>
+      </div>
+      <div class="card">
+        <h3>Commercial & Brand Content</h3>
+        <p>Showcase your product, service, or brand with sharp, well-edited promotional videos that speak directly to your target audience. We focus on delivering content that builds trust and drives action</p>
+      </div>
+      <div class="card">
+        <h3> Social Media Reels & Edits</h3>
+          <p>Short-form video content tailored for Instagram, TikTok, and YouTube. We combine creativity, music syncing, transitions, and trending effects to boost engagement and online presence.</p>
+      </div>
+      <div class="card">
+        <h3>Real Estate Video Tours</h3>
+        <p>Crisp and professional property walkthroughs with wide-angle shots, smooth transitions, and aerial drone views. Perfect for realtors, Airbnb hosts, or builders looking to stand out in a competitive market.</p>
+      </div>
+      <div class="card">
+        <h3>Drone & FPV Videography</h3>
+<p>Get a new perspective with dynamic aerial shots. Licensed and skilled in capturing drone visuals for events, real estate, travel, and commercials—bringing scale and depth to your story.</p>
+      </div>
+    </div>
+  </section>
+
+<section class="team">
+  <h2>OUR <span class="red">TEAM</span></h2>
+  <div class="team-slider-wrapper">
+    <div class="team-slider" id="teamSlider">
+      <div class="team-card card1">
+        <img src="random.jpg" alt="Sushern" />
+<div class="team-info">
+  <div class="top-row">
+    <span class="icon">📸</span>
+    <span class="name red"><strong>SUSHERN</strong></span>
+  </div>
+  <div class="role">Videographer & Editor</div>
+  <p class="desc">
+    From concept to final cut, Sushern handles the full production workflow with a cinematic eye. 
+    Specializing in event coverage, social media reels, and commercial editing, he ensures every 
+    frame feels powerful and polished.
+  </p>
+</div>
+      </div>
+            <div class="team-card card2">
+        <img src="https://via.placeholder.com/100" alt="Mathew" />
+
+<div class="team-info">
+  <div class="top-row">
+    <span class="icon">🎥</span>
+    <span class="name red"><strong>MATHEW</strong></span>
+  </div>
+  <div class="role">FPV Drone Pilot & Aerial Cinematographer</div>
+  <p class="desc">
+With precision control and creative flight paths, Mathew captures breathtaking aerial footage using both traditional drones and FPV. His work adds dynamic movement and scale to real estate tours, travel films, and action-based content.
+  </p>
+</div>
+
+      </div>
+      <div class="team-card card3">
+        <img src="https://via.placeholder.com/100" alt="Benjamin" />
+
+<div class="team-info">
+  <div class="top-row">
+    <span class="icon">🎬</span>
+    <span class="name red"><strong>BENJAMIN</strong></span>
+  </div>
+  <div class="role">Photographer & Visual Stylist</div>
+  <p class="desc">
+Benjamin freezes moments in time with style and emotion. Whether it’s candid event shots, lifestyle portraits, or brand photography, his attention to detail and storytelling brings depth to every image.
+
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+  <div class="team-dots">
+    <span class="dot active" onclick="showTeamSlide(0)"></span>
+    <span class="dot" onclick="showTeamSlide(1)"></span>
+    <span class="dot" onclick="showTeamSlide(2)"></span>
+  </div>
+</section>
+
+
+  <section class="contact">
+    <h2>Let's <span class="red">Connect</span></h2>
+    <p><strong>Studio Location:</strong><br>
+      101 Creative Avenue, Suite 605, New York, NY 10001</p>
+    <p><strong>Email Us:</strong><br>
+      <a href="mailto:info@101editing.com">info@101editing.com</a><br>
+      <a href="mailto:projects@101editing.com">projects@101editing.com</a></p>
+    <p><strong>Call Us:</strong><br>
+      +1 (212) 655-0101<br>
+      Mon-Fri: 9AM - 6PM</p>
+  </section>
+
+  
+
+<script>
+// Reveal sections on scroll
+const sections = document.querySelectorAll('section');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(section => observer.observe(section));
+
+// ===== TEAM SLIDER =====
+const slider = document.getElementById('teamSlider');
+const dots = document.querySelectorAll('.team-dots .dot');
+let currentIndex = 0;
+const slideCount = dots.length;
+
+function showTeamSlide(index) {
+  currentIndex = index;
+  slider.style.transition = 'transform 0.8s ease-in-out';
+  slider.style.transform = `translateX(-${index * 100}%)`;
+  dots.forEach(dot => dot.classList.remove('active'));
+  dots[index].classList.add('active');
+}
+
+// Swipe support for team slider
+let startX = 0, isSwiping = false;
+slider.addEventListener('touchstart', e => {
+  startX = e.touches[0].clientX;
+  isSwiping = true;
+});
+slider.addEventListener('touchmove', e => {
+  if (!isSwiping) return;
+  let diff = startX - e.touches[0].clientX;
+  if (Math.abs(diff) > 50) {
+    currentIndex = diff > 0 ? (currentIndex + 1) % slideCount
+                            : (currentIndex - 1 + slideCount) % slideCount;
+    showTeamSlide(currentIndex);
+    isSwiping = false;
+  }
+});
+slider.addEventListener('touchend', () => { isSwiping = false; });
+dots.forEach((dot, i) => dot.addEventListener('click', () => showTeamSlide(i)));
+
+// ===== TRAVEL SLIDER =====
+// Store current indices for each category
+const videoIndices = {
+  travel: 0,
+  commercial: 0,
+  event: 0,
+  social: 0,
+  drone: 0
+};
+
+function showSlide(category, direction) {
+  const container = document.getElementById(category);
+  if (!container) return;
+
+  const track = container.querySelector('.video-track');
+  const videos = track.querySelectorAll('video');
+  const N = videos.length;
+  if (!N) return;
+
+  // Update index
+  videoIndices[category] = (videoIndices[category] + direction + N) % N;
+
+  // Move track
+  track.style.transform = `translateX(-${videoIndices[category] * 100}%)`;
+
+  // Pause other videos
+  videos.forEach((v, i) => {
+    if (i !== videoIndices[category]) v.pause();
+  });
+}
+
+
+function rememberTravelState() {
+  const v = activeTravelVideo();
+  if (!v) return;
+  travelPlayback.time = v.currentTime || 0;
+  travelPlayback.playing = !v.paused && !v.ended;
+}
+
+function restoreTravelState() {
+  const v = activeTravelVideo();
+  if (!v) return;
+  v.currentTime = travelPlayback.time || 0;
+  if (travelPlayback.playing) v.play();
+}
+
+// ===== CATEGORY FILTER =====
+function showCategory(category) {
+  // Hide all category sections
+  document.querySelectorAll('.category').forEach(sec => {
+    sec.style.display = "none";
+  });
+
+  // Show the selected one
+  if (category === "all") {
+    document.getElementById("all").style.display = "flex";
+  } else {
+    const section = document.getElementById(category);
+    if (section) {
+      section.style.display = "flex";
+    }
+  }
+}
+
+// Load "All" by default when page opens
+window.onload = function() {
+  showCategory("all");
+};
+
+
+document.querySelectorAll("video:not(.bg-video)").forEach(video => {
+  video.addEventListener("loadeddata", () => {
+    if (video.readyState >= 2) {
+      video.currentTime = 0.1;
+      video.pause();  // only pause the gallery videos, not the background
+    }
+  });
+});
+
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) {
+    document.getElementById("travel").scrollIntoView({ behavior: "instant" });
+  }
+});
+
+// Ensure all travel videos have proper width before sliding
+const travelVideos = document.querySelectorAll('.video-track video');
+travelVideos.forEach(video => {
+  video.addEventListener('loadedmetadata', () => {
+    video.style.width = '100%';
+    video.style.height = '100%';
+    showTravelSlide(currentTravelIndex, { noAutoPause: true }); // re-align track
+  });
+});
+
+</script>
+
+</body>
+</html>
