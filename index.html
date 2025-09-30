@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@400;500&family=Roboto:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=TT+Interphases+Pro:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>101 Video Editing Studio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      /* 🔹 Apply snap to html, not body */
+      /* html {
+  scroll-snap-type: y mandatory;   /* snap vertically */
+
+      body {
+        font-family: "TT Interphases Pro", sans-serif;
+        background-color: black;
+        color: white;
+        overflow-x: hidden; /* prevent sideways scroll */
+        overflow-y: auto; /* allow normal scrolling */
+      }
+
+      section {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 100px 20px;
+        scroll-snap-align: start;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+        position: relative;
+        margin: 0 auto;
+        max-width: 1200px;
+      }
+
+      .bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw; /* full viewport width */
+        height: 100vh; /* full viewport height */
+        object-fit: cover; /* fill the screen properly */
+        z-index: -1; /* keep it behind content */
+        filter: brightness(0.9);
+        pointer-events: none;
+      }
+
+      section.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .red {
+        color: red;
+      }
+
+      .team {
+        text-align: center;
+        position: relative;
+        padding-top: 100px;
+      }
+
+      .team-slider-wrapper {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+      }
+
+      .team-slider {
+        display: flex;
+        transition: transform 0.5s ease;
+        gap: 40px;
+      }
+
+      /* Common style for all team cards */
+      .team-card {
+        flex: 0 0 auto;
+        max-width: 600px; /* prevents too wide stretch */
+        margin: 0 auto; /* center */
+        background: #111;
+        padding: 40px 50px;
+        border: 1px solid #444;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        color: #fff;
+        flex-direction: row;
+        position: relative;
+      }
+      .team-card:hover {
+        box-shadow: 0 0 25px rgba(230, 0, 0, 0.6);
+      }
+
+      /* Specific styles for each card */
+      .card1 {
+        width: 60%; /* smaller card */
+        background: #1a1a1a;
+        margin-left: 290px;
+        width: 950px;
+        height: 295px;
+      }
+
+      .card2 {
+        width: 70%; /* medium card */
+        background: #222;
+        margin-left: 525px;
+      }
+
+      .card3 {
+        width: 80%; /* larger card */
+        background: #2a2a2a;
+        margin-left: 525px;
+      }
+
+      .team-card img {
+        width: 220px;
+        height: 220px;
+        border-radius: 20px; /* rounded corners for image */
+        background-color: #333;
+        margin-right: 200px;
+        margin-right: 0;
+        margin-left: -20px;
+        object-fit: cover;
+        filter: grayscale(100%);
+      }
+      .team-info {
+        position: absolute;
+        top: 40px;
+        left: 280px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* keeps everything left aligned */
+        max-width: 380px;
+      }
+
+      .team-info .top-row {
+        display: flex;
+        align-items: center; /* vertically align icon with text */
+        gap: 8px; /* spacing between icon and name */
+        margin-bottom: 4px;
+      }
+
+      .team-info .icon {
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .team-info .name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #e60000; /* red highlight */
+      }
+
+      .team-info .role {
+        font-size: 14px;
+        color: #ccc;
+        margin-bottom: 6px;
+      }
+      .team-info .desc {
+        font-size: 13.6px; /* smaller size */
+        line-height: 1.6; /* good readability */
+        color: #ccc;
+        text-align: justify; /* keep aligned left */
+        margin-top: 10px;
+        font-family: "Poppins", sans-serif;
+        letter-spacing: 0.2px;
+        max-width: 85%; /* reduce width to avoid touching border */
+        padding-right: 10px; /* add spacing from right edge */
+      }
+      /* Hover effect for name */
+      .team-info .name:hover {
+        color: #ff3333; /* brighter red on hover */
+        text-shadow: 0 0 8px rgba(230, 0, 0, 0.8);
+        cursor: pointer; /* pointer cursor */
+        transition: 0.3s ease-in-out; /* smooth animation */
+      }
+
+      /* Hover effect for role */
+      .team-info .role:hover {
+        color: #fff; /* turn white on hover */
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+      }
+      .team-info .desc:hover {
+        color: #fff; /* turn white on hover */
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+      }
+
+      .team-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        gap: 10px;
+      }
+
+      .team-dots .dot {
+        width: 12px;
+        height: 12px;
+        background: #888;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .team-dots .dot.active {
+        background-color: white;
+      }
+
+      a {
+        color: #ff4d4d;
+        text-decoration: none;
+      }
+      .filter-buttons {
+        margin-top: 7px;
+        margin-bottom: 25px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .filter-buttons button {
+        background: transparent;
+        color: #aaa;
+        padding: 10px 20px;
+        border-radius: 2px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        border: 1px solid #555;
+      }
+
+      .filter-buttons button:hover,
+      .filter-buttons button:focus {
+        background-color: #f44336;
+        color: #000;
+        box-shadow: 0 0 6px rgba(244, 67, 54, 0.5);
+      }
+      .landing-text {
+        font-size: 18rem;
+        color: red;
+        opacity: 0.3;
+      }
+      .spacer {
+        height: 0;
+      }
+
+      .portfolio-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* centers the items */
+        gap: 30px;
+        /* max-width: 1000px; */
+        /* margin: 0 auto; */
+      }
+
+      /* Travel video card style */
+      .travel-card {
+        filter: grayscale(85%);
+        background: #181818;
+        border-radius: 16px;
+        box-shadow: 0 0 18px rgba(255, 0, 0, 0.25);
+        overflow: hidden;
+        width: 250px;
+        height: 200px;
+        margin-bottom: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .travel-card:hover {
+        transform: scale(1.04);
+        box-shadow: 0 0 28px rgba(255, 0, 0, 0.45);
+      }
+      .travel-card video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 16px;
+        display: block;
+      }
+      .portfolio-grid .item {
+        background-color: #111;
+        border: 1px solid #333;
+        border-radius: 16px;
+        padding: 30px;
+        min-height: 220px;
+        text-align: left;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 0 16px rgba(255, 0, 0, 0.2);
+        font-size: 1.1rem;
+        flex: 0 0 250px;
+      }
+      .portfolio-grid .item:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+        background-color: #1a1a1a;
+        cursor: pointer;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .services-grid .card {
+        background-color: #111;
+        padding: 30px; /* Increased padding */
+        border-radius: 16px; /* Slightly more rounded */
+        border: 1px solid #333;
+        box-shadow: 0 0 16px rgba(255, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: left;
+        font-size: 1.1rem; /* Slightly larger text */
+        min-height: 220px; /* Increase height */
+      }
+
+      .services-grid .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+        background-color: #1a1a1a;
+      }
+
+      .services-grid .card h3 {
+        color: #f44336;
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+
+      .services-grid .card ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        color: #ddd;
+      }
+      .about {
+        max-width: 1000px;
+        margin: auto;
+        padding: 70px 20px;
+        text-align: center;
+      }
+
+      .about p {
+        font-size: 1.5rem; /* increased from 1.25rem */
+        line-height: 2.1; /* more breathing room */
+        color: #ccc;
+        max-width: 900px;
+        margin: 0 auto;
+        animation: fadeInUp 1.3s ease forwards;
+        letter-spacing: 0.4px;
+      }
+
+      .about p strong {
+        font-weight: bold;
+        color: inherit; /* keeps white, no red */
+      }
+
+      .video-slider video {
+        border-radius: 12px;
+        box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+      }
+
+      .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        font-size: 2rem;
+        background: rgba(0, 0, 0, 0.6);
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .arrow.left {
+        left: 10px;
+      }
+      .arrow.right {
+        right: 10px;
+      }
+      .arrow:hover {
+        background: rgba(255, 0, 0, 0.8);
+      }
+      .arrow:hover {
+        background: rgba(255, 0, 0, 0.8);
+      }
+
+      .travel-slider {
+        position: relative;
+        width: 600px; /* box width */
+        height: 340px; /* box height */
+        margin: auto;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+      }
+
+      .video-slider {
+        position: relative;
+        width: 650px; /* box width */
+        height: 400px; /* box height */
+        margin: auto;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: 0 0 18px rgba(255, 0, 0, 0.4);
+      }
+
+      .video-track {
+        display: flex;
+        transition: transform 0.6s ease;
+        height: 100%;
+      }
+
+      .video-track video {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* fills without distortion */
+        background: #000;
+        border-radius: 16px;
+        margin: 0; /* remove any extra margin */
+      }
+      .travel-card iframe {
+        scale: 1.5;
+      }
+      /* Travel video container */
+      .travel-video {
+        width: 100%;
+        max-width: 900px; /* same max width for all */
+        aspect-ratio: 16 / 9; /* keep consistent size */
+        margin: 20px auto;
+        overflow: hidden;
+        border-radius: 12px;
+        position: relative;
+        background: #000; /* avoids blank space */
+      }
+
+      /* Videos inside container */
+      .travel-video video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* fills box, no stretching */
+        display: block;
+      }
+      .contact {
+        font-size: 25px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+
+      .contact.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .contact p,
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      @font-face {
+        font-family: "TT Interphases Pro";
+        src: url("fonts/TT-Interphases-Pro.woff2") format("woff2"),
+          url("fonts/TT-Interphases-Pro.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      class="bg-video"
+      style="transition: opacity 1s ease-in-out"
+    >
+      <source src="video.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <section class="landing"></section>
+
+    <section class="about">
+      <p>
+        At 101, we believe every story deserves to be told beautifully. We are a
+        creative production team based in Ontario, capturing events, brands,
+        travels, and moments with cinematic precision and a personal touch.
+        <br /><br />
+        Our approach is simple: <strong>listen, create, and deliver</strong>.
+        Whether you’re celebrating a milestone, launching a product, or
+        showcasing a property, we bring your vision to life through visuals that
+        connect and inspire.
+      </p>
+    </section>
+
+    <section class="portfolio">
+      <h2 style="font-size: 2rem">OUR <span class="red">PORTFOLIO</span></h2>
+      <div class="filter-buttons">
+        <button onclick="renderCategory('all')">All</button>
+        <button onclick="renderCategory('travel')">Travel</button>
+        <button onclick="renderCategory('commercial')">Commercial</button>
+        <button onclick="renderCategory('event')">Event</button>
+        <button onclick="renderCategory('social')">Social Media</button>
+        <button onclick="renderCategory('drone')">Drone</button>
+      </div>
+      <div
+        id="maingallery"
+        class="portfolio-grid category"
+        style="width: 100vw; display: none"
+      ></div>
+    </section>
+
+    <section class="services">
+      <h2 style="font-size: 2rem">OUR <span class="red">SERVICES</span></h2>
+      <div class="services-grid">
+        <div class="card">
+          <h3>Event Videography</h3>
+          <p>
+            Weddings, birthdays, parties, or corporate gatherings—we capture
+            your most important moments with a natural and cinematic touch,
+            preserving memories that feel real and timeless.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Travel & Lifestyle Films</h3>
+          <p>
+            We specialize in capturing the beauty, culture, and energy of every
+            destination. Perfect for travel brands, tourism campaigns, or
+            content creators looking to document their journey with style.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Commercial & Brand Content</h3>
+          <p>
+            Showcase your product, service, or brand with sharp, well-edited
+            promotional videos that speak directly to your target audience. We
+            focus on delivering content that builds trust and drives action
+          </p>
+        </div>
+        <div class="card">
+          <h3>Social Media Reels & Edits</h3>
+          <p>
+            Short-form video content tailored for Instagram, TikTok, and
+            YouTube. We combine creativity, music syncing, transitions, and
+            trending effects to boost engagement and online presence.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Real Estate Video Tours</h3>
+          <p>
+            Crisp and professional property walkthroughs with wide-angle shots,
+            smooth transitions, and aerial drone views. Perfect for realtors,
+            Airbnb hosts, or builders looking to stand out in a competitive
+            market.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Drone & FPV Videography</h3>
+          <p>
+            Get a new perspective with dynamic aerial shots. Licensed and
+            skilled in capturing drone visuals for events, real estate, travel,
+            and commercials—bringing scale and depth to your story.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="team">
+      <h2 style="font-size: 2rem">OUR <span class="red">TEAM</span></h2>
+      <div class="team-slider-wrapper">
+        <div class="team-slider" id="teamSlider">
+          <div class="team-card card1">
+            <img src="sus.jpg" alt="Sushern" />
+            <div class="team-info">
+              <div class="top-row">
+                <span class="icon">📸</span>
+                <span class="name red"><strong>SUSHERN</strong></span>
+              </div>
+              <div class="role">Videographer & Editor</div>
+              <p class="desc">
+                From concept to final cut, Sushern handles the full production
+                workflow with a cinematic eye. Specializing in event coverage,
+                social media reels, and commercial editing, he ensures every
+                frame feels powerful and polished.
+              </p>
+            </div>
+          </div>
+          <div class="team-card card2">
+            <img src="m.JPG" alt="Mathew" />
+
+            <div class="team-info">
+              <div class="top-row">
+                <span class="icon">🎥</span>
+                <span class="name red"><strong>MATHEW</strong></span>
+              </div>
+              <div class="role">FPV Drone Pilot & Aerial Cinematographer</div>
+              <p class="desc">
+                With precision control and creative flight paths, Mathew
+                captures breathtaking aerial footage using both traditional
+                drones and FPV. His work adds dynamic movement and scale to real
+                estate tours, travel films, and action-based content.
+              </p>
+            </div>
+          </div>
+          <div class="team-card card3">
+            <img src="b.JPG" alt="Benjamin" />
+
+            <div class="team-info">
+              <div class="top-row">
+                <span class="icon">🎬</span>
+                <span class="name red"><strong>BENJAMIN</strong></span>
+              </div>
+              <div class="role">Photographer & Visual Stylist</div>
+              <p class="desc">
+                Benjamin freezes moments in time with style and emotion. Whether
+                it’s candid event shots, lifestyle portraits, or brand
+                photography, his attention to detail and storytelling brings
+                depth to every image.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="team-dots">
+        <span class="dot active" onclick="showTeamSlide(0)"></span>
+        <span class="dot" onclick="showTeamSlide(1)"></span>
+        <span class="dot" onclick="showTeamSlide(2)"></span>
+      </div>
+    </section>
+
+    <section class="contact">
+      <h2>Let's <span class="red">Connect</span></h2>
+      <p>
+        <strong>Email Us:</strong><br />
+        <a href="sushern101@gmail.com">sushern101@gmail.com</a><br />
+      </p>
+
+      <p>
+        <strong>Call Us:</strong><br />
+        +1 (905) 651-8665<br />
+      </p>
+    </section>
+
+    <!-- ...existing code... -->
+    <div
+      id="videoModal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <span
+        id="closeModal"
+        style="
+          position: absolute;
+          top: 40px;
+          right: 60px;
+          font-size: 3rem;
+          color: #fff;
+          cursor: pointer;
+          z-index: 10001;
+        "
+        >&times;</span
+      >
+      <video
+        id="modalVideo"
+        controls
+        style="
+          max-width: 80vw;
+          max-height: 80vh;
+          border-radius: 18px;
+          box-shadow: 0 0 40px #000;
+        "
+      ></video>
+    </div>
+    <!-- ...existing code... -->
+
+    <script>
+      const videoData = {
+        all: [
+          { id: "1123119227", poster: "thumbnails/travel1.jpg" }, //2024-1
+          { id: "1123120917", poster: "thumbnails/travel2.jpg" }, //5004
+          { id: "1123121245", poster: "thumbnails/travel3.jpg" }, //aTob
+          { id: "1123121927", poster: "thumbnails/travel1.jpg" }, //bluffers beach beer
+          { id: "1123122867", poster: "thumbnails/travel2.jpg" }, //carf1
+          { id: "1123122915", poster: "thumbnails/travel2.jpg" }, //color1
+          { id: "1123122957", poster: "thumbnails/travel2.jpg" }, //dark red
+          { id: "1123123399", poster: "thumbnails/travel2.jpg" }, //drone 54
+          { id: "1123123458", poster: "thumbnails/travel2.jpg" }, //elora
+          { id: "1123123506", poster: "thumbnails/travel2.jpg" }, //fd1
+          { id: "1123123587", poster: "thumbnails/travel2.jpg" }, //ferara
+          { id: "1123123648", poster: "thumbnails/travel2.jpg" }, //final1
+          { id: "1123124463", poster: "thumbnails/travel2.jpg" }, //josros41
+          { id: "1123124519", poster: "thumbnails/travel2.jpg" }, //noah
+          { id: "1123124578", poster: "thumbnails/travel2.jpg" }, //notl
+          { id: "1123124637", poster: "thumbnails/travel2.jpg" }, //notalbeach2
+          { id: "1123124697", poster: "thumbnails/travel2.jpg" }, //notler1
+          { id: "1123124727", poster: "thumbnails/travel2.jpg" }, //notljos
+          { id: "1123124776", poster: "thumbnails/travel2.jpg" }, //port
+          { id: "1123124821", poster: "thumbnails/travel2.jpg" }, //potr
+          { id: "1123124862", poster: "thumbnails/travel2.jpg" }, //sk3
+          { id: "1123124896", poster: "thumbnails/travel2.jpg" }, //sreerag x sneha
+          { id: "1123124929", poster: "thumbnails/travel2.jpg" }, //stcatherins
+          { id: "1123125967", poster: "thumbnails/travel2.jpg" }, //subaru
+          { id: "1123126041", poster: "thumbnails/travel2.jpg" }, //ver34.1
+          { id: "1123126164", poster: "thumbnails/travel2.jpg" }, //waterfront
+
+          // Add more Vimeo IDs here
+        ],
+        travel: [
+          { id: "1123124578", poster: "thumbnails/travel2.jpg" }, //notl
+          { id: "1123126041", poster: "thumbnails/travel2.jpg" }, //ver34.1
+          { id: "1123121245", poster: "thumbnails/travel3.jpg" }, //aTob
+          { id: "1123124929", poster: "thumbnails/travel2.jpg" }, //stcatherins
+          { id: "1123124776", poster: "thumbnails/travel2.jpg" }, //port
+          { id: "1123124821", poster: "thumbnails/travel2.jpg" }, //potr
+          { id: "1123122915", poster: "thumbnails/travel2.jpg" }, //color1
+          { id: "1123119227", poster: "thumbnails/travel1.jpg" }, //2024-1
+          { id: "1123121927", poster: "thumbnails/travel1.jpg" }, //bluffers beach beer
+        ],
+        commercial: [
+          { id: "1123123587", poster: "thumbnails/travel2.jpg" }, //ferara
+          { id: "1123123648", poster: "thumbnails/travel2.jpg" }, //final1
+        ],
+        event: [
+          { id: "1123124519", poster: "thumbnails/travel2.jpg" }, //noah
+          { id: "1123124896", poster: "thumbnails/travel2.jpg" }, //sreerag x sneha
+        ],
+        social: [
+          { id: "1123124463", poster: "thumbnails/travel2.jpg" }, //josros41
+          { id: "1123124697", poster: "thumbnails/travel2.jpg" }, //notler1
+          { id: "1123124862", poster: "thumbnails/travel2.jpg" }, //sk3
+          { id: "1123122867", poster: "thumbnails/travel2.jpg" }, //carf1
+          { id: "1123123458", poster: "thumbnails/travel2.jpg" }, //elora
+          { id: "1123123506", poster: "thumbnails/travel2.jpg" }, //fd1
+          { id: "1123125967", poster: "thumbnails/travel2.jpg" }, //subaru
+          { id: "1123122957", poster: "thumbnails/travel2.jpg" }, //dark red
+          { id: "1123124637", poster: "thumbnails/travel2.jpg" }, //notalbeach2
+          { id: "1123120917", poster: "thumbnails/travel2.jpg" }, //5004
+        ],
+        drone: [
+          { id: "1123123399", poster: "thumbnails/travel2.jpg" }, //drone 54
+          { id: "1123126164", poster: "thumbnails/travel2.jpg" }, //waterfront
+        ],
+        // Add other categories as needed
+      };
+
+      function renderCategory(categoryId) {
+        const container = document.getElementById("maingallery");
+        container.innerHTML = ""; // clear previous content
+
+        container.style.display = "flex"; // show selected category
+        videoData[categoryId].forEach((item) => {
+          const card = document.createElement("div");
+          card.classList.add("travel-card");
+
+          // Vimeo embed iframe
+          // ...existing code...
+          // ...existing code...
+          card.innerHTML = `
+  <div style="position: relative; width: 640px; height: 360px;">
+  <iframe
+    width="100%"
+    height="100%"
+    src="https://player.vimeo.com/video/${item.id}?autoplay=1&loop=1&muted=1&autopause=0&background=1"
+    frameborder="0"
+    allow="autoplay; fullscreen"
+    allowfullscreen
+    style="display: block;"
+  ></iframe>
+
+  <a
+    href="https://vimeo.com/${item.id}"
+    target="_blank"
+    rel="noopener noreferrer"
+    title="Open on Vimeo"
+    style="
+      position: absolute;
+      bottom: 90px;
+      right: 10px;
+     
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    "
+  >⛶</a>
+</div>
+
+`;
+          // ...existing code...
+          // ...existing code...
+
+          container.appendChild(card);
+        });
+      }
+
+      // Example: render all videos
+      renderCategory("all");
+      // ...existing code...
+      // ...existing code...
+
+      // Modal video player logic
+      document.addEventListener("click", function (e) {
+        // Only trigger for video cards
+        const videoCard = e.target.closest(".travel-card video");
+        if (videoCard) {
+          const modal = document.getElementById("videoModal");
+          const modalVideo = document.getElementById("modalVideo");
+          modal.style.display = "flex";
+          modalVideo.src = videoCard.querySelector("source")
+            ? videoCard.querySelector("source").src
+            : videoCard.src;
+          modalVideo.poster = videoCard.poster;
+          modalVideo.currentTime = 0;
+          modalVideo.play();
+          document.body.style.overflow = "hidden"; // Prevent background scroll
+        }
+      });
+
+      // Close modal on click of X or outside video
+      document.getElementById("closeModal").onclick = function () {
+        const modal = document.getElementById("videoModal");
+        const modalVideo = document.getElementById("modalVideo");
+        modal.style.display = "none";
+        modalVideo.pause();
+        modalVideo.src = "";
+        document.body.style.overflow = "";
+      };
+      document.getElementById("videoModal").onclick = function (e) {
+        if (e.target === this) {
+          this.style.display = "none";
+          document.getElementById("modalVideo").pause();
+          document.getElementById("modalVideo").src = "";
+          document.body.style.overflow = "";
+        }
+      };
+      // ...existing code...
+      // const videoData = {
+      //   travel: [
+      //     { src: "video/POTR.mov", poster: "thumbnails/travel1.jpg" },
+      //     { src: "video/PORT.mp4", poster: "thumbnails/travel2.jpg" },
+      //     { src: "video/COLOR1.mp4", poster: "thumbnails/travel3.jpg" },
+      //     { src: "video/BLFF4.mp4", poster: "thumbnails/travel1.jpg" },
+      //     { src: "video/2024-1.mp4", poster: "thumbnails/travel2.jpg" },
+      //     { src: "video/bluffers beach beer1.mp4", poster: "thumbnails/travel3.jpg" },
+      //     { src: "video/STCATHERINS12.mp4", poster: "thumbnails/travel3.jpg" },
+      //     { src: "video/aTOB1.mp4", poster: "thumbnails/travel2.jpg" },
+      //     { src: "video/ver34.1.mp4", poster: "thumbnails/travel3.jpg" },
+      //     // Add more videos as needed
+      //   ],
+      //   // Repeat for other categories: commercial, event, social, drone
+      // };
+
+      // const slideState = { travel: 0 };
+
+      // function renderSlides(category) {
+      //   const videos = videoData[category];
+      //   const perSlide = 9;
+      //   const slides = [];
+      //   for (let i = 0; i < videos.length; i += perSlide) {
+      //     slides.push(videos.slice(i, i + perSlide));
+      //   }
+      //   return slides;
+      // }
+
+      // function showPortfolioSlide(category, slideIdx = 0) {
+      //   const container = document.getElementById(category);
+      //   const track = container.querySelector('.slide-track');
+      //   const slides = renderSlides(category);
+      //   slideState[category] = slideIdx;
+
+      //   // Build slide HTML
+      //   track.innerHTML = '';
+      //   if (slides.length === 0) return;
+      //   const slide = slides[slideIdx];
+      //   const grid = document.createElement('div');
+      //   grid.className = 'portfolio-grid';
+      //   grid.style.flexWrap = 'wrap';
+      //   grid.style.justifyContent = 'center';
+      //   grid.style.gap = '30px';
+
+      //   slide.forEach(v => {
+      //     const card = document.createElement('div');
+      //     card.className = 'travel-card';
+      //     card.innerHTML = `
+      //       <video autoplay muted loop playsinline poster="${v.poster}">
+      //         <source src="${v.src}" type="video/mp4">
+      //       </video>
+      //     `;
+      //     grid.appendChild(card);
+      //   });
+      //   track.appendChild(grid);
+
+      //   // Show/hide arrows
+      //   container.querySelector('.arrow.left').style.display = slideIdx > 0 ? 'block' : 'none';
+      //   container.querySelector('.arrow.right').style.display = slideIdx < slides.length - 1 ? 'block' : 'none';
+      // }
+
+      // function changeSlide(category, direction) {
+      //   const slides = renderSlides(category);
+      //   let idx = slideState[category] + direction;
+      //   idx = Math.max(0, Math.min(idx, slides.length - 1));
+      //   showPortfolioSlide(category, idx);
+      // }
+
+      // // Show first slide when category is selected
+      // // function showCategory(category) {
+      // //   document.querySelectorAll('.category').forEach(sec => sec.style.display = "none");
+      // //   if (category === "all") {
+      // //     document.getElementById("all").style.display = "flex";
+      // //   } else {
+      // //     const section = document.getElementById(category);
+      // //     if (section) {
+      // //       section.style.display = "flex";
+      // //       showPortfolioSlide(category, 0);
+      // //     }
+      // //   }
+      // // }
+      const bgVideo = document.querySelector(".bg-video");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY < window.innerHeight * 0.5) {
+          // On landing page (top half)
+          bgVideo.style.opacity = "1";
+        } else {
+          // After scrolling down
+          bgVideo.style.opacity = "0.4";
+        }
+      });
+      // ...existing code...
+      // Reveal sections on scroll
+      const sections = document.querySelectorAll("section");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      sections.forEach((section) => observer.observe(section));
+
+      // ===== TEAM SLIDER =====
+      const slider = document.getElementById("teamSlider");
+      const dots = document.querySelectorAll(".team-dots .dot");
+      let currentIndex = 0;
+      const slideCount = dots.length;
+
+      function showTeamSlide(index) {
+        currentIndex = index;
+        slider.style.transition = "transform 0.8s ease-in-out";
+        slider.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((dot) => dot.classList.remove("active"));
+        dots[index].classList.add("active");
+      }
+
+      // Swipe support for team slider
+      let startX = 0,
+        isSwiping = false;
+      slider.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+        isSwiping = true;
+      });
+      slider.addEventListener("touchmove", (e) => {
+        if (!isSwiping) return;
+        let diff = startX - e.touches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          currentIndex =
+            diff > 0
+              ? (currentIndex + 1) % slideCount
+              : (currentIndex - 1 + slideCount) % slideCount;
+          showTeamSlide(currentIndex);
+          isSwiping = false;
+        }
+      });
+      slider.addEventListener("touchend", () => {
+        isSwiping = false;
+      });
+      dots.forEach((dot, i) =>
+        dot.addEventListener("click", () => showTeamSlide(i))
+      );
+
+      // ===== TRAVEL SLIDER =====
+      // Store current indices for each category
+      const videoIndices = {
+        travel: 0,
+        commercial: 0,
+        event: 0,
+        social: 0,
+        drone: 0,
+      };
+
+      function showSlide(category, direction) {
+        const container = document.getElementById(category);
+        if (!container) return;
+
+        const track = container.querySelector(".video-track");
+        const videos = track.querySelectorAll("video");
+        const N = videos.length;
+        if (!N) return;
+
+        // Update index
+        videoIndices[category] = (videoIndices[category] + direction + N) % N;
+
+        // Move track
+        track.style.transform = `translateX(-${videoIndices[category] * 100}%)`;
+
+        // Pause other videos
+        videos.forEach((v, i) => {
+          if (i !== videoIndices[category]) v.pause();
+        });
+      }
+
+      function rememberTravelState() {
+        const v = activeTravelVideo();
+        if (!v) return;
+        travelPlayback.time = v.currentTime || 0;
+        travelPlayback.playing = !v.paused && !v.ended;
+      }
+
+      function restoreTravelState() {
+        const v = activeTravelVideo();
+        if (!v) return;
+        v.currentTime = travelPlayback.time || 0;
+        if (travelPlayback.playing) v.play();
+      }
+
+      // document.querySelectorAll("video:not(.bg-video)").forEach(video => {
+      //   video.addEventListener("loadeddata", () => {
+      //     if (video.readyState >= 2) {
+      //       video.currentTime = 0.1;
+      //       video.pause();  // only pause the gallery videos, not the background
+      //     }
+      //   });
+      // });
+
+      document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement) {
+          document
+            .getElementById("travel")
+            .scrollIntoView({ behavior: "instant" });
+        }
+      });
+
+      // Ensure all travel videos have proper width before sliding
+      const travelVideos = document.querySelectorAll(".video-track video");
+      travelVideos.forEach((video) => {
+        video.addEventListener("loadedmetadata", () => {
+          video.style.width = "100%";
+          video.style.height = "100%";
+          showTravelSlide(currentTravelIndex, { noAutoPause: true }); // re-align track
+        });
+      });
+    </script>
+  </body>
+</html>
